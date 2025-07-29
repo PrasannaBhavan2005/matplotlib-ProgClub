@@ -1,0 +1,105 @@
+# Q1 
+class Titan:
+    """
+    A general Titan class representing basic attributes and functionality.
+
+    Attributes:
+        name (str): The Titan's name.
+        region (str): Where the Titan originates from.
+        allegiance (str): Which group or side the Titan supports.
+        _height (float): Titan's height in meters (private).
+        _strength (int): Titan's strength level (private).
+    """
+
+    def __init__(self, name: str, region: str, allegiance: str, *, height: float, strength: int):
+        self.name = name               # Public attribute
+        self.region = region           # Public attribute
+        self.allegiance = allegiance   # Public attribute
+        self._height = height          # Private attribute
+        self._strength = strength      # Private attribute
+
+    # Getter for height
+    def get_height(self) -> float:
+        return self._height
+
+    # Setter for height
+    def set_height(self, height: float):
+        if height > 0:
+            self._height = height
+        else:
+            raise ValueError("Height must be greater than 0.")
+
+    # Getter for strength
+    def get_strength(self) -> int:
+        return self._strength
+
+    # Setter for strength
+    def set_strength(self, strength: int):
+        if strength >= 0:
+            self._strength = strength
+        else:
+            raise ValueError("Strength must be non-negative.")
+
+
+class NormalTitan(Titan):
+    """
+    Represents a basic Titan with an aggression level.
+
+    Attributes:
+        aggression_level (int): Measures how aggressive the Titan is (default is 5).
+    """
+
+    def __init__(self, name: str, region: str, allegiance: str, *,
+                 height: float, strength: int, aggression_level: int = 5):
+        super().__init__(name, region, allegiance, height=height, strength=strength)
+        self.aggression_level = aggression_level  # Optional attribute
+
+    def is_hostile(self) -> bool:
+        """
+        Determines if the Titan is hostile based on aggression level.
+        """
+        return self.aggression_level > 6
+
+
+class SpecialTitan(Titan):
+    """
+    A Titan with a special ability and enhanced power.
+
+    Attributes:
+        special_power (str): The unique ability this Titan possesses.
+        _power_level (int): A private measure of how strong the special power is.
+    """
+
+    def __init__(self, name: str, region: str, allegiance: str, *,
+                 height: float, strength: int,
+                 special_power: str, power_level: int):
+        super().__init__(name, region, allegiance, height=height, strength=strength)
+        self.special_power = special_power      # Public
+        self._power_level = power_level         # Private
+
+    def get_power_level(self) -> int:
+        return self._power_level
+
+    def set_power_level(self, level: int):
+        if 0 <= level <= 100:
+            self._power_level = level
+        else:
+            raise ValueError("Power level must be between 0 and 100.")
+
+    def has_strong_power(self) -> bool:
+        """
+        Checks if the Titan's power level is high.
+        """
+        return self._power_level > 70
+
+
+
+Q2)
+FancyBoxPatch is  similar  to rectangle but it draws a fancy box around the rectangle 
+When we initialize FancyBboxPatch, it accepts many parameters, some specific to it, some to Patch, some to Artist. Since inheritance is involved, and not every class in the chain knows what keyword arguments are meant for it, kwargs is passed up the chain until the class that recognizes a keyword argument handles it.
+
+That’s why kwargs is essential in such hierarchical libraries to ensure flexibility and extensibility without breaking code.
+
+
+
+
